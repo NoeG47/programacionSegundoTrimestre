@@ -30,7 +30,7 @@ public class Ej2_hoja1 {
 				for (int j = 0; j < 3; j++) {
 					
 					dado ++;
-					System.out.println("el " + (j+1) +  " numero del dado" + dado + " es: " + arrayDado[j]);
+					System.out.println("el numero del dado" + dado + " es: " + arrayDado[j]);
 				
 				}
 				System.out.println("La suma de los 3 numeros es: " + suma);		

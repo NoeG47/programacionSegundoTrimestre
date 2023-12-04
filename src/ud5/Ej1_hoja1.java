@@ -18,8 +18,8 @@ public class Ej1_hoja1 {
 				//paso 2: usarlo a través de sus métodos
 				// nombre_objeto.metodo(parametros)
 				for (int i = 0; i<20; i++) {
-					int tirada = ale.nextInt(10)+1;
-					System.out.println(tirada);
+					int tirada = ale.nextInt(11);
+					System.out.print(tirada+ " ");
 				}
 				
 			
