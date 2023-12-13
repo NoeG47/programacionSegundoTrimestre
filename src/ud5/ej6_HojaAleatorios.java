@@ -20,15 +20,15 @@ public class ej6_HojaAleatorios {
 	public static void main(String[] args) {
 		Random ale = new Random();
 		// numero aleatorio
-		int tirada = ale.nextInt(100);
+		int tirada = ale.nextInt(101);
 		// pedimos un numero al usuario
 		boolean acertado = false;
 		int intentos = 5;
 		System.out.println("este es el num secreto: " + tirada);
-		while (acertado == false && intentos > 0) {
+		do {
 			System.out.println("Introduce un numero para adivinar el original");
 			int buscarNum = in.nextInt();
-			System.out.println("Te quedan " + (--intentos) + " oportunidades");
+			
 			if (buscarNum > tirada) {
 				System.out.println("El numero es mayor al numero secreto");
 			}
@@ -39,7 +39,9 @@ public class ej6_HojaAleatorios {
 				System.out.println("Bingo, has acertado el numero");
 				acertado = true;
 			}
-		}
+			intentos--;
+			System.out.println("Te quedan " + intentos + " oportunidades");
+		}  while (acertado == false && intentos > 0);
 		if (acertado == false) {
 		    System.out.println("¡Agotaste tus oportunidades! El número correcto era " + tirada);
 		}
