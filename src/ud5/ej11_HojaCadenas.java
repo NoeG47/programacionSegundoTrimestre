@@ -14,26 +14,67 @@ public class ej11_HojaCadenas {
 	static Scanner in = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		int contador = 0;
+		
 		int i = 0;
 		boolean contieneArroba = false;
 		System.out.println("Introduce un correo: ");
 		String cad = in.nextLine();
-		// comprobar letra a letra si hay alguna arroba
-		for ( i = 0; i < cad.length(); i++) {
-			if (cad.charAt(i) == '@') {
-				contieneArroba = true;
-				contador++;
-				System.out.println("el @ se encuentra en la posicion " +  (i+1));
-			}
-		}
-		if (contieneArroba == true && contador == 1) {
+		
+		if (buscarArroba(cad) == true && contarArroba(cad, i) == 1) {
             System.out.println("Contiene un arroba");
+            if (hayPuntos(cad) == false) {
+            	System.out.println("No puede haber 2 puntos seguidos despues del @");
+            }
          
-        } else if (contieneArroba == true && contador > 1) {
+        } else if (buscarArroba(cad) == true && contarArroba(cad, i) > 1) {
             System.out.println("No puede haber más de dos @");
         } else {
         	System.out.println("No hay @");
         }
 	}
+	public static boolean buscarArroba(String cad) {
+	   
+	    
+	    // Comprobar letra a letra si hay alguna arroba
+	    for (int i = 0; i < cad.length(); i++) {
+	        if (cad.charAt(i) == '@') {
+	            System.out.println("El @ se encuentra en la posición " + (i + 1));
+	            return true;
+	        }
+	    }
+		return false;
+	}
+	public static int contarArroba(String cad, int cont) {
+		// comprobar las veces que hay un arroba
+				for (int i = 0; i < cad.length(); i++) {
+					if (cad.charAt(i) == '@') {
+						cont++;
+					}
+				}
+		return cont;
+	}
+	public static boolean hayPuntos(String cad) {
+		 boolean esCorrecto = false;
+		    boolean cond1 = true;  
+		    boolean cond2 = true;  
+		    for (int i = 0; i < cad.length(); i++) {
+		        if (cad.charAt(i) == '@') {
+		            // Verificar si hay dos puntos seguidos después del arroba
+		            if (i < cad.length() - 2 && cad.charAt(i + 1) == '.' && cad.charAt(i + 2) == '.') {
+		               
+		                cond2 = false;
+		               
+		            } else {
+		              
+		                cond1 = true;
+		               
+		            }
+		            if (cond1 == true) {
+		            	return true;
+		            }
+		        }
+		    }
+			return false;
+	}
+	
 }
