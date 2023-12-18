@@ -2,45 +2,37 @@ package ud5;
 
 import java.util.Scanner;
 
-/*
- *  Realizar una función a la que se le pasa por parámetro una cadena
-con un email, y dicha función devuelve si el mail está bien formado.
-Un email está bien formado cuando:
-1.1.- Contiene una y solo una arroba.
-1.2.- No puede contener dos puntos seguidos '.' después de la arroba.
-1.3.- No puede contener ' '
-*/
 public class ej11_HojaCadenas {
 	static Scanner in = new Scanner(System.in);
 
 	public static void main(String[] args) {
+		boolean correoCorrecto = false;
 
-		int i = 0;
-		
-	//	do {
+		do {
 			System.out.println("Introduce un correo: ");
 			String cad = in.nextLine();
 
-			if (buscarArroba(cad) == true && contarArroba(cad, i) == 1 && hayPuntos(cad) == false) {
-				System.out.println("No puede haber 2 puntos seguidos despues del @");
-			}
-
-			else if (buscarArroba(cad) == true && contarArroba(cad, i) > 1) {
-				System.out.println("No puede haber más de dos @");
-			} else {
-				System.out.println("No hay @");
+			if (buscarArroba(cad) && contarArroba(cad, 0) == 1 && !hayPuntos(cad) && !hayEspacios(cad)) {
+				correoCorrecto = true;
+				System.out.println("Correo correcto");
+			} else if (buscarArroba(cad) && contarArroba(cad, 0) > 1) {
+				System.out.println("No puede haber más de dos @. Inténtalo de nuevo");
+			} else if (buscarArroba(cad) && contarArroba(cad, 0) == 1 && hayPuntos(cad)==true) {
+				System.out.println("No puede haber dos puntos despues del arroba. Inténtalo de nuevo");
 			}
 			
-//		}
+			else {
+				System.out.println("No cumple con los requisitos. Inténtalo de nuevo.");
+			}
 
-		//while ();
+		} while (!correoCorrecto);
 	}
 
 	public static boolean buscarArroba(String cad) {
-
 		// Comprobar letra a letra si hay alguna arroba
 		for (int i = 0; i < cad.length(); i++) {
 			if (cad.charAt(i) == '@') {
+				// Descomentar la siguiente línea para enseñar la posición del arroba
 				// System.out.println("El @ se encuentra en la posición " + (i + 1));
 				return true;
 			}
@@ -63,13 +55,26 @@ public class ej11_HojaCadenas {
 			if (cad.charAt(i) == '@') {
 				// Verificar si hay dos puntos seguidos después del arroba
 				if (i < cad.length() - 2 && cad.charAt(i + 1) == '.' && cad.charAt(i + 2) == '.') {
-					return false;
-
+					return true;
 				}
-				return true;
+				return false;
 			}
 		}
 		return false;
 	}
 
+	public static boolean hayEspacios(String cad) {
+		// NO comienza por espacio
+		if (cad.charAt(0) == ' ') {
+			System.out.println("No puede empezar con espacios");
+			return true;
+		}
+		for (int i = 1; i < cad.length(); i++) {
+			if (cad.charAt(i) == ' ') {
+				System.out.println("No puede haber espacios");
+				return true;
+			}
+		}
+		return false;
+	}
 }
