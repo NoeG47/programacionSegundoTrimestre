@@ -9,11 +9,10 @@ public class EjemploEscaner {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Introduce un numero entero: ");
 		boolean esInt = in.hasNextInt();
-		if (esInt==true) {
-		int num = in.nextInt();
-		System.out.println("El numero multiplicado por 2 es: " + (num * 2));
-}
-		else {
+		if (esInt == true) {
+			int num = in.nextInt();
+			System.out.println("El numero multiplicado por 2 es: " + (num * 2));
+		} else {
 			System.out.println("El numero NO es entero");
 		}
 	}
