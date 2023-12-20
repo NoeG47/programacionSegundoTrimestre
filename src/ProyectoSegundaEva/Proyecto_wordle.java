@@ -29,10 +29,14 @@ public class Proyecto_wordle {
 			System.out.println("Solo se admiten letras");
 
 		}
-		if (contieneVocales(palabraIntroducida, vocales) == true) {
+		if (contieneVocales(palabraIntroducida, vocales) == true && contarVocales(palabraIntroducida, vocales) <= 1) {
 			System.out.println("contiene una vocal pero se necesitan mas de 2 y maximo de 3");
-		} else {
-			System.out.println("ta mal");
+		} 
+		if (contieneVocales(palabraIntroducida, vocales) == true && contarVocales(palabraIntroducida, vocales) >= 2) {
+			System.out.println("contiene vocales");
+		} 
+		else {
+			System.out.println("esta mal");
 		}
 
 		// } while ();
@@ -70,9 +74,9 @@ public class Proyecto_wordle {
 	}
 
 	public static boolean contieneVocales(String cad, char[] vocales) {
-		for (i = 0; i < cad.length(); i++) {
+		for (int i = 0; i < cad.length(); i++) {
 			for (int j = 0; j < vocales.length; j++) {
-				if (cad.charAt(i) == vocales[i]) {
+				if (cad.charAt(i) == vocales[j]) {
 					return true;
 				}
 			}
@@ -81,9 +85,9 @@ public class Proyecto_wordle {
 		return false;
 	}
 
-	/*public static int contarVocales(String cad, char[] vocales) {
+	public static int contarVocales(String cad, char[] vocales) {
 		int cont = 0;
-		for (i = 0; i < cad.length(); i++) {
+		for (int i = 0; i < cad.length(); i++) {
 			char letraActual = cad.charAt(i);
 			for (int j = 0; j < vocales.length; j++) {
 				if (letraActual == vocales[j]) {
@@ -93,6 +97,6 @@ public class Proyecto_wordle {
 
 		}
 		return cont;
-	}*/
+	}
 
 }

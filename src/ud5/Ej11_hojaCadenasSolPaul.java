@@ -14,7 +14,7 @@ public class Ej11_hojaCadenasSolPaul {
 			System.out.println("El correo esta bien formado");
 		}
 		else {
-			System.out.println("El correo no esta bien formado");
+			System.out.println("El correo no esta bien formado :(");
 		}
 	}
 	public static boolean emailEsCorrecto(String email) {
@@ -22,6 +22,9 @@ public class Ej11_hojaCadenasSolPaul {
 			return false;
 		if(contieneAlgunEspacio(email))
 			return false;
+		if(contieneDosPuntosSeguidos(email))
+			return false;
+		//en caso contrario
 		return true;
 	}
 	public static boolean contieneUnaArriba(String email) {
@@ -48,5 +51,14 @@ public class Ej11_hojaCadenasSolPaul {
 			return true;
 		//si no lo contiene
 		return false;
+		//forma 3
+		//if (email.indexOf(' ')==1)
+			//return false;
+		//return true;
+	}
+	public static boolean contieneDosPuntosSeguidos(String email) {
+		String[] partesEmail =email.split("@");
+		boolean tieneDosPuntos= partesEmail[1].contains("..");
+		return tieneDosPuntos;
 	}
 }
