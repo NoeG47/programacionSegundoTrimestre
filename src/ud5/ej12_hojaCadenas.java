@@ -21,12 +21,14 @@ public class ej12_hojaCadenas {
 	// "nombre;stock;precio"
 	static Scanner in;
 	static String[] productos;
+	static String[] nombresRegistrados;
 	static int pos;
 
 	public static void main(String[] args) {
 		// Construimos un array de productos, inicialmente
 		// cada posicion es null
 		productos = new String[10];
+		nombresRegistrados = new String[10];
 		in = new Scanner(System.in);
 		int opcion = 1;
 		pos = 0;
@@ -45,7 +47,7 @@ public class ej12_hojaCadenas {
 				buscarProducto();
 				break;
 			case 3:
-				// modificarProducto();
+				modificarProducto();
 				break;
 			case 4:
 				System.out.println("Hasta otra");
@@ -61,22 +63,17 @@ public class ej12_hojaCadenas {
 	public static void altaProducto() {
 		String producto = "", nombre, stock, precio;
 
+		// Consumir el carácter de nueva línea pendiente
+		in.nextLine();
+
 		System.out.println("Introduce nombre:");
 		nombre = in.nextLine();
-		in.nextLine(); 
-		// Verificar si el producto ya existe
-		boolean productoExiste = false;
-		for (int i = 0; i < pos; i++) {
-			String[] datosProducto = productos[i].split(";");
-			if (datosProducto.length > 0 && datosProducto[0].equals(nombre)) {
-				productoExiste = true;
 
-			}
-		}
+		// verificar si el nombre ya está registrado
 
-		if (productoExiste) {
-			System.out.println("Este producto ya ha sido introducido.");
-			return;
+		if (nombreYaRegistrado(nombre)) {
+			System.out.println("El producto ya está registrado.");
+			return; // Salir del método si el nombre ya está registrado
 		}
 
 		System.out.println("Introduce stock:");
@@ -91,6 +88,7 @@ public class ej12_hojaCadenas {
 		// almaceno el producto si hay espacio
 		if (pos < 10) {
 			productos[pos] = producto;
+			nombresRegistrados[pos] = nombre;
 			pos++;
 			System.out.println("Producto agregado correctamente.");
 		} else {
@@ -98,17 +96,72 @@ public class ej12_hojaCadenas {
 		}
 	}
 
-	public static void buscarProducto() {
-		String productoBuscado = "";
-		System.out.println("Introduce el nombre del producto a buscar:");
-		productoBuscado = in.nextLine();
-		in.nextLine();
-		for (int i = 0; i < productos.length; i++) {
-			if (productoBuscado == productos[i]) {
-				System.out.println(productos[i]);
-				System.out.println("hola");
+	public static boolean nombreYaRegistrado(String nombre) {
+		// Verificar si el nombre ya está en el array temporal de nombresRegistrados
+		for (int i = 0; i < pos; i++) {
+			if (nombre.equals(nombresRegistrados[i])) {
+				return true;
 			}
 		}
+		return false;
 	}
 
+	public static void buscarProducto() {
+		in.nextLine();
+
+		System.out.println("Introduce el nombre del producto a buscar:");
+		String nombreProductoBuscar = in.nextLine();
+
+		boolean encontrado = false;
+
+		for (int i = 0; i < pos && !encontrado; i++) {
+			String[] partesProducto = productos[i].split(";");
+			if (nombreProductoBuscar.equals(partesProducto[0])) {
+				System.out.println("Producto encontrado:");
+				System.out.println("Nombre: " + partesProducto[0]);
+				System.out.println("Stock: " + partesProducto[1]);
+				System.out.println("Precio: " + partesProducto[2]);
+				encontrado = true;
+			}
+		}
+		if (!encontrado) {
+			System.out.println("Producto no encontrado.");
+		}
+	}
+	public static void modificarProducto() {
+	    in.nextLine(); // Consumir el carácter de nueva línea pendiente
+
+	    System.out.println("Introduce el nombre del producto a modificar:");
+	    String nombreModificar = in.nextLine();
+
+	    boolean encontrado = false;
+
+	    // Buscar el producto por nombre en el array productos
+	    for (int i = 0; i < pos && !encontrado; i++) {
+	        String[] partesProducto = productos[i].split(";");
+	        if (nombreModificar.equals(partesProducto[0])) {
+	            System.out.println("Producto encontrado:");
+	            System.out.println("Nombre: " + partesProducto[0]);
+	            System.out.println("Stock actual: " + partesProducto[1]);
+	            System.out.println("Precio actual: " + partesProducto[2]);
+
+	            System.out.println("Introduce nuevo stock:");
+	            String nuevoStock = in.nextLine();
+
+	            System.out.println("Introduce nuevo precio:");
+	            String nuevoPrecio = in.nextLine();
+
+	            // Modificar el stock y precio del producto usando replace
+	            productos[i] = productos[i].replace(partesProducto[1], nuevoStock);
+	            productos[i] = productos[i].replace(partesProducto[2], nuevoPrecio);
+
+	            System.out.println("Stock y precio modificados correctamente.");
+	            encontrado = true;
+	        }
+	    }
+
+	    if (!encontrado) {
+	        System.out.println("Producto no encontrado.");
+	    }
+	}
 }
