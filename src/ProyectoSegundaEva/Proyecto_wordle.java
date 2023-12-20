@@ -9,37 +9,33 @@ public class Proyecto_wordle {
 	static int numIntentosConsumidos = 6;
 	static int numLetrasAdivinadas = 0;
 	static int i = 0;
-
+	static char[] vocales = { 'a', 'e', 'i', 'o', 'u' };
 	public static void main(String[] args) {
 		String[] palabras = { "robar", "comer", "lapiz", "camion", "juego", "letra", "jorge", "gafas", "manta", "queso",
 				"ranas", "canoa", "avion", "lento", "novio", "cable", "raton", "color", "reina", "cocos" };
 		Random ale = new Random();
 		int numAle = ale.nextInt(21);
 		palabraSecreta = palabras[numAle];
-		char[] vocales = { 'a', 'e', 'i', 'o', 'u' };
+		
 
 		System.out.println(palabraSecreta);
-		// do {
-		System.out.println("Introduce una palabra de 5 letras");
+		boolean esCorrecta = false;
+		do {
+		System.out.println("Introduce una palabra de 5 letras: ");
 		String palabraIntroducida = in.nextLine().toLowerCase(); // convertimos a minusculas
-		if (!contiene5letras(palabraIntroducida)) {
-			System.out.println("Debe ser una palabra de 5 letras");
+		
+		if(palabraEsCorrecta(palabraIntroducida) == true) {
+			System.out.println("La palabra cumple con los requisitos");
+			System.out.println(palabraIntroducida);
+			esCorrecta = true;
 		}
-		if (!contieneSoloLetras(palabraIntroducida)) {
-			System.out.println("Solo se admiten letras");
-
-		}
-		if (contieneVocales(palabraIntroducida, vocales) == true && contarVocales(palabraIntroducida, vocales) <= 1) {
-			System.out.println("contiene una vocal pero se necesitan mas de 2 y maximo de 3");
-		} 
-		if (contieneVocales(palabraIntroducida, vocales) == true && contarVocales(palabraIntroducida, vocales) >= 2) {
-			System.out.println("contiene vocales");
-		} 
 		else {
-			System.out.println("esta mal");
+			System.out.println("La palabra no cumple con los requisitos");
 		}
+		
+		
 
-		// } while ();
+		} while (!esCorrecta);
 
 	}
 	/*
@@ -55,8 +51,22 @@ public class Proyecto_wordle {
 	 */
 
 	// COMPROBACIONES
+	public static boolean palabraEsCorrecta(String cad) {
+		if(!contiene5letras(cad))
+			return false;
+		if(!contieneSoloLetras(cad))
+			return false;
+		if(!contieneVocales(cad) && (contarVocales(cad) < 2 || contarVocales(cad) > 3))
+			return false;
+		if(contieneAlgunEspacio(cad))
+			return false;
+		//en caso contrario
+		return true;
+	}
+	
+	
 	public static boolean contiene5letras(String cad) {
-		if (cad.length() > 0 && cad.length() < 5) {
+		if (cad.length() != 5) {
 			return false;
 		}
 		return true;
@@ -73,7 +83,7 @@ public class Proyecto_wordle {
 		return true;
 	}
 
-	public static boolean contieneVocales(String cad, char[] vocales) {
+	public static boolean contieneVocales(String cad) {
 		for (int i = 0; i < cad.length(); i++) {
 			for (int j = 0; j < vocales.length; j++) {
 				if (cad.charAt(i) == vocales[j]) {
@@ -85,7 +95,7 @@ public class Proyecto_wordle {
 		return false;
 	}
 
-	public static int contarVocales(String cad, char[] vocales) {
+	public static int contarVocales(String cad) {
 		int cont = 0;
 		for (int i = 0; i < cad.length(); i++) {
 			char letraActual = cad.charAt(i);
@@ -98,5 +108,11 @@ public class Proyecto_wordle {
 		}
 		return cont;
 	}
-
+	public static boolean contieneAlgunEspacio(String cad) {
+		if (cad.contains(" "))
+			return true;
+		//si no lo contiene
+		return false;
+	}
+	
 }
