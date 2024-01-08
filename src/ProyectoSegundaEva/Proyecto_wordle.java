@@ -11,6 +11,26 @@ public class Proyecto_wordle {
 	static char[] vocales = { 'a', 'e', 'i', 'o', 'u' };
 
 	public static void main(String[] args) {
+		// Aquí va el bucle para preguntar si quiere jugar o no
+		char opcion = ' ';
+		do {
+			System.out.println("¿Deseas jugar otra partida? S/N");
+			opcion = in.nextLine().charAt(0);
+			switch (opcion) {
+			case 'S':
+			case 's':
+				System.out.println("aqui va el juego");
+				break;
+			case 'N':
+			case 'n':
+				System.out.println("Fin del juego");
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
+
+		} while (opcion != 'N' && opcion != 'n');
+		//Aquí empieza el juego
 		generaPalabra();
 		boolean esCorrecta = false;
 		do {
@@ -19,9 +39,12 @@ public class Proyecto_wordle {
 
 			if (palabraEsCorrecta(palabraIntroducida)) {
 				System.out.println("La palabra cumple con los requisitos");
+				//Aquí se desarrolla el resto del juego
+				compruebaLetrasAcertadas(palabraIntroducida, palabraSecreta);
 				
+				//Si el jugador ha adivinado la palabra
 				haGanadoJugador1(palabraIntroducida);
-				System.out.println(palabraIntroducida);
+				//System.out.println(palabraIntroducida);
 				esCorrecta = true;
 			} else {
 				System.out.println("La palabra no cumple con los requisitos");
@@ -30,22 +53,30 @@ public class Proyecto_wordle {
 		} while (!esCorrecta);
 
 	}
-	
+
 	public static boolean haGanadoJugador1(String palabra) {
 		if (palabra.equals(palabraSecreta)) {
 			System.out.println("Enhorabuena! Has acertado la palabra");
 			return true;
-		};
+		}
+		;
 		return false;
-	 }
+	}
+
 	/*
-	 *  public static boolean haTerminadoJuego(String cad, intentos) {
+	 * public static boolean haTerminadoJuego(String cad, intentos) {
 	 * 
-	 * } public static String compruebaLetrasAcertadas(String cad) {
-	 * 
-	 * }
-	 * 
-	 */
+	 * } */
+	public static void compruebaLetrasAcertadas(String palabraIntroducida, String palabraOculta) {
+	 for (int i = 0; i < palabraIntroducida.length(); i++) {
+		 if (palabraIntroducida.charAt(i) == palabraOculta.charAt(i)) {
+			 System.out.print(palabraIntroducida.charAt(i));
+		 }
+		 
+	 
+	 }
+	}
+	 
 	public static void generaPalabra() {
 		String[] palabras = { "robar", "comer", "lapiz", "camion", "juego", "letra", "sofia", "gafas", "manta", "queso",
 				"ranas", "canoa", "avion", "lento", "novio", "cable", "raton", "color", "reina", "cocos" };
@@ -54,7 +85,8 @@ public class Proyecto_wordle {
 		palabraSecreta = palabras[numAle];
 
 		System.out.println(palabraSecreta);
-	  }
+	}
+
 	// COMPROBACIONES
 	public static boolean palabraEsCorrecta(String cad) {
 		if (!contiene5letras(cad))
@@ -77,6 +109,7 @@ public class Proyecto_wordle {
 		// en caso contrario
 		return true;
 	}
+
 	// Debe tener exactamente 5 letras.
 	public static boolean contiene5letras(String cad) {
 		if (cad.length() != 5) {
