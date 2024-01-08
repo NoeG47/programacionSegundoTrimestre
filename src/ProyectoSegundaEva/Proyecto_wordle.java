@@ -11,13 +11,7 @@ public class Proyecto_wordle {
 	static char[] vocales = { 'a', 'e', 'i', 'o', 'u' };
 
 	public static void main(String[] args) {
-		String[] palabras = { "robar", "comer", "lapiz", "camion", "juego", "letra", "sofia", "gafas", "manta", "queso",
-				"ranas", "canoa", "avion", "lento", "novio", "cable", "raton", "color", "reina", "cocos" };
-		Random ale = new Random();
-		int numAle = ale.nextInt(palabras.length);
-		palabraSecreta = palabras[numAle];
-
-		System.out.println(palabraSecreta);
+		generaPalabra();
 		boolean esCorrecta = false;
 		do {
 			System.out.println("Introduce una palabra de 5 letras: ");
@@ -25,6 +19,8 @@ public class Proyecto_wordle {
 
 			if (palabraEsCorrecta(palabraIntroducida)) {
 				System.out.println("La palabra cumple con los requisitos");
+				
+				haGanadoJugador1(palabraIntroducida);
 				System.out.println(palabraIntroducida);
 				esCorrecta = true;
 			} else {
@@ -34,18 +30,31 @@ public class Proyecto_wordle {
 		} while (!esCorrecta);
 
 	}
+	
+	public static boolean haGanadoJugador1(String palabra) {
+		if (palabra.equals(palabraSecreta)) {
+			System.out.println("Enhorabuena! Has acertado la palabra");
+			return true;
+		};
+		return false;
+	 }
 	/*
-	 * public static boolean haGanadoJugador1(String cad) {
-	 * 
-	 * } public static boolean haTerminadoJuego(String cad, intentos) {
+	 *  public static boolean haTerminadoJuego(String cad, intentos) {
 	 * 
 	 * } public static String compruebaLetrasAcertadas(String cad) {
 	 * 
-	 * } public static String generaPalabra() {
-	 * 
 	 * }
+	 * 
 	 */
+	public static void generaPalabra() {
+		String[] palabras = { "robar", "comer", "lapiz", "camion", "juego", "letra", "sofia", "gafas", "manta", "queso",
+				"ranas", "canoa", "avion", "lento", "novio", "cable", "raton", "color", "reina", "cocos" };
+		Random ale = new Random();
+		int numAle = ale.nextInt(palabras.length);
+		palabraSecreta = palabras[numAle];
 
+		System.out.println(palabraSecreta);
+	  }
 	// COMPROBACIONES
 	public static boolean palabraEsCorrecta(String cad) {
 		if (!contiene5letras(cad))
