@@ -63,10 +63,13 @@ public class Proyecto_wordle {
 		return false;
 	}
 
-	/*
-	 * public static boolean haTerminadoJuego(String cad, intentos) {
-	 * 
-	 * } */
+
+	  public static boolean haTerminadoJuego() {
+		 if(numIntentosConsumidos < 0) {
+		  return true;
+		  }
+		 return false;
+	 } 
 	public static void compruebaLetrasAcertadas(String palabraIntroducida, String palabraOculta) {
 	 for (int i = 0; i < palabraIntroducida.length(); i++) {
 		 if (palabraIntroducida.charAt(i) == palabraOculta.charAt(i)) {
