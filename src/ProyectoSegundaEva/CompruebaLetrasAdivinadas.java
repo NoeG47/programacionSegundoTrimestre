@@ -3,42 +3,44 @@ package ProyectoSegundaEva;
 import java.util.Scanner;
 
 public class CompruebaLetrasAdivinadas {
-	static int numLetrasAdivinadas = 0;
-	static Scanner in = new Scanner(System.in);
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Introduce una palabra de 5 letras");
-		String palabra;
-		palabra = in.nextLine();
-		palabra = palabra.toLowerCase();
-		String palabraOculta = "raton";
+    static Scanner in = new Scanner(System.in);
 
-		String resultado = compruebaLetrasAcertadas(palabra, palabraOculta);
-		System.out.println(resultado);
-		System.out.println("Has acertado en su posición correcta: " + numLetrasAdivinadas + " letras");
-	}
-	public static String compruebaLetrasAcertadas(String palabraIntroducida, String palabraOculta) {
-		char [] cadVacia = new char [palabraIntroducida.length()] ;
-		for (int i = 0; i < palabraIntroducida.length(); i++) {
-			if (palabraIntroducida.charAt(i) == palabraOculta.charAt(i)) {
-				 cadVacia[i] = Character.toUpperCase(palabraIntroducida.charAt(i));
-				 numLetrasAdivinadas++;
-			 }
-			else {
-				 // Si la letra coincide pero no está en la posición correcta
-	            if (palabraOculta.indexOf(palabraIntroducida.charAt(i)) != -1) {
-	                cadVacia[i] = palabraIntroducida.charAt(i);
-	            } else {
-	                cadVacia[i] = '*';
-				
-	            }
-	        }
-			
-			
-		 }
-		
-		String resultado = new String(cadVacia);
-		return resultado;
-		}
+    public static void main(String[] args) {
+        System.out.println("Introduce una palabra de 5 letras");
+        String palabraIntroducida = in.nextLine().toLowerCase();
+        String palabraSecreta = "cejas";
 
+        String resultado = compruebaLetrasAcertadas(palabraIntroducida, palabraSecreta);
+        System.out.println(resultado);
+    }
+
+    public static String compruebaLetrasAcertadas(String palabraIntroducida, String palabraSecreta) {
+        char[] resultado = new char[palabraIntroducida.length()];
+
+        for (int i = 0; i < palabraIntroducida.length(); i++) {
+            char letraIntroducida = palabraIntroducida.charAt(i);
+            char letraSecreta = palabraSecreta.charAt(i);
+
+            if (letraIntroducida == letraSecreta) {
+                resultado[i] = Character.toUpperCase(letraIntroducida);
+            } else if (palabraSecreta.contains(String.valueOf(letraIntroducida)) &&
+                       !contieneLetraDuplicada(palabraIntroducida, letraIntroducida, i)) {
+                resultado[i] = letraIntroducida;
+            } else {
+                resultado[i] = '*';
+            }
+        }
+
+        return new String(resultado);
+    }
+
+    public static boolean contieneLetraDuplicada(String palabra, char letra, int posicionActual) {
+        int contador = 0;
+        for (int i = 0; i < palabra.length(); i++) {
+            if (i != posicionActual && palabra.charAt(i) == letra) {
+                contador++;
+            }
+        }
+        return contador > 0;
+    }
 }

@@ -23,23 +23,25 @@ public class Proyecto_wordle {
 		generaPalabra();
 		boolean esPalabraCorrecta = false;
 		do {
+			numLetrasAdivinadas = 0;
 			System.out.println("Introduce una palabra de 5 letras: ");
 			String palabraIntroducida = in.nextLine().toLowerCase(); // convertimos a minusculas
 			// Caso correcto, Si la palabra cumple los requisitos pasa
 			// al funcionamiento del juego
 			if (palabraEsCorrecta(palabraIntroducida)) {
 				System.out.println("La palabra cumple con los requisitos");
-
-				// Aquí se desarrolla el resto del juego
+				   String resultado = compruebaLetrasAcertadas(palabraIntroducida, palabraSecreta);
+			        System.out.println(resultado);
+			        System.out.println("Has acertado " + numLetrasAdivinadas + " letras correctas");
+				// Si gana el jugador 1
 				if (haGanadoJugador1(palabraIntroducida)) {
 					System.out.println("Enhorabuena! Has acertado la palabra");
 					esPalabraCorrecta = true;
 					contWinsJugador++;
 					System.out.println("Tú: " + contWinsJugador + " vs " + " Máquina: " + contWinsMaquina);
-				}
+				}		
 				// Aquí solo decrementamos los intentos si no se ha acertado la palabra
 				else {
-
 					numIntentosConsumidos--;
 					System.out.println("La palabra no es correcta. Inténtalo de nuevo.");
 					System.out.println("Intentos restantes: " + numIntentosConsumidos);
@@ -53,7 +55,7 @@ public class Proyecto_wordle {
 				}
 			}
 
-			// Caso incorrecto, si la palabra anteriormente introducida
+			// Si la palabra 
 			// no cumple con los requisitos exigidos
 			// ya sea palabras raras etc
 			else {
@@ -63,6 +65,7 @@ public class Proyecto_wordle {
 
 		} while (!esPalabraCorrecta);
 		reiniciarJuego();
+		in.nextLine();
 	}
 	public static void reiniciarJuego() {
 		// Aquí va el bucle para preguntar si quiere jugar o no
@@ -95,20 +98,41 @@ public class Proyecto_wordle {
 
 	public static boolean haTerminadoJuego() {
 		if (numIntentosConsumidos <= 0) {
-			
 			return true;
 		}
 		return false;
 	}
 
-	public static void compruebaLetrasAcertadas(String palabraIntroducida, String palabraOculta) {
-		for (int i = 0; i < palabraIntroducida.length(); i++) {
-			if (palabraIntroducida.charAt(i) == palabraOculta.charAt(i)) {
-				numLetrasAdivinadas++;
-			}
-		}
-		System.out.println("Letras acertadas: " + numLetrasAdivinadas);
-	}
+	public static String compruebaLetrasAcertadas(String palabraIntroducida, String palabraSecreta) {
+        char[] resultado = new char[palabraIntroducida.length()];
+
+        for (int i = 0; i < palabraIntroducida.length(); i++) {
+            char letraIntroducida = palabraIntroducida.charAt(i);
+            char letraSecreta = palabraSecreta.charAt(i);
+
+            if (letraIntroducida == letraSecreta) {
+                resultado[i] = Character.toUpperCase(letraIntroducida);
+                numLetrasAdivinadas++;
+            } else if (palabraSecreta.contains(String.valueOf(letraIntroducida)) &&
+                       !contieneLetraDuplicada(palabraIntroducida, letraIntroducida, i)) {
+                resultado[i] = letraIntroducida;
+               
+            } else {
+                resultado[i] = '*';
+            }
+        }
+        return new String(resultado);
+    }
+
+    public static boolean contieneLetraDuplicada(String palabra, char letra, int posicionActual) {
+        int contador = 0;
+        for (int i = 0; i < palabra.length(); i++) {
+            if (i != posicionActual && palabra.charAt(i) == letra) {
+                contador++;
+            }
+        }
+        return contador > 0;
+    }
 
 	public static void generaPalabra() {
 		String[] palabras = { "robar", "comer", "lapiz", "carta", "juego", "letra", "sofia", "gafas", "manta", "queso",
@@ -116,7 +140,7 @@ public class Proyecto_wordle {
 		Random ale = new Random();
 		int numAle = ale.nextInt(palabras.length);
 		palabraSecreta = palabras[numAle];
-
+		
 		System.out.println(palabraSecreta);
 	}
 
@@ -232,7 +256,6 @@ public class Proyecto_wordle {
 	}
 
 	public static boolean terminaEnQWX(String cad) {
-
 		char letraFinal = cad.charAt(cad.length() - 1);
 		char[] letrasRaras = { 'q', 'w', 'x' };
 		for (int i = 0; i < 3; i++) {
