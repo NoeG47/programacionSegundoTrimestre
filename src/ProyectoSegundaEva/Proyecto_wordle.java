@@ -13,6 +13,7 @@ public class Proyecto_wordle {
 	static int contWinsJugador;
 
 	public static void main(String[] args) {
+		System.out.println("Bienvenido al juego de Wordle");
 		jugarPartida();
 	}
 
@@ -21,7 +22,7 @@ public class Proyecto_wordle {
 		numIntentosConsumidos = 6;
 		// Aquí empieza el juego
 		generaPalabra();
-		boolean esPalabraCorrecta = false;
+		boolean esPalabraValida = false;
 		do {
 			numLetrasAdivinadas = 0;
 			System.out.println("Introduce una palabra de 5 letras: ");
@@ -30,63 +31,66 @@ public class Proyecto_wordle {
 			// al funcionamiento del juego
 			if (palabraEsCorrecta(palabraIntroducida)) {
 				System.out.println("La palabra cumple con los requisitos");
-				   String resultado = compruebaLetrasAcertadas(palabraIntroducida, palabraSecreta);
-			        System.out.println(resultado);
-			        System.out.println("Has acertado " + numLetrasAdivinadas + " letras correctas");
+				String resultado = compruebaLetrasAcertadas(palabraIntroducida, palabraSecreta);
+				System.out.println(resultado);
+				System.out.println("Has acertado " + numLetrasAdivinadas + " letras correctas");
 				// Si gana el jugador 1
 				if (haGanadoJugador1(palabraIntroducida)) {
 					System.out.println("Enhorabuena! Has acertado la palabra");
-					esPalabraCorrecta = true;
+					esPalabraValida = true;
 					contWinsJugador++;
 					System.out.println("Tú: " + contWinsJugador + " vs " + " Máquina: " + contWinsMaquina);
-				}		
+				}
 				// Aquí solo decrementamos los intentos si no se ha acertado la palabra
 				else {
 					numIntentosConsumidos--;
-					System.out.println("La palabra no es correcta. Inténtalo de nuevo.");
-					System.out.println("Intentos restantes: " + numIntentosConsumidos);
+					//Breve control de mensajes de aviso para el jugador 
+					if (numIntentosConsumidos >= 1) {
+						System.out.println("La palabra no es correcta. Inténtalo de nuevo.");
+						System.out.println("Intentos restantes: " + numIntentosConsumidos);
+					}
 					if (haTerminadoJuego()) {
 						System.out.println("Te has quedado sin intentos. La palabra secreta era: " + palabraSecreta);
 						contWinsMaquina++;
 						System.out.println("Tú: " + contWinsJugador + " vs " + " Máquina: " + contWinsMaquina);
-						esPalabraCorrecta = true;
+						esPalabraValida = true;
 					}
 
 				}
 			}
 
-			// Si la palabra 
+			// Si la palabra
 			// no cumple con los requisitos exigidos
 			// ya sea palabras raras etc
 			else {
 				System.out.println("La palabra no cumple con los requisitos");
-				System.out.println("Introduce una palabra válida: ");
 			}
 
-		} while (!esPalabraCorrecta);
+		} while (!esPalabraValida);
 		reiniciarJuego();
 		in.nextLine();
 	}
+
 	public static void reiniciarJuego() {
 		// Aquí va el bucle para preguntar si quiere jugar o no
-				char opcion = ' ';
-				do {
-					System.out.println("¿Deseas jugar otra partida? S/N");
-					opcion = in.nextLine().charAt(0);
-					switch (opcion) {
-					case 'S':
-					case 's':
-						jugarPartida();
-						break;
-					case 'N':
-					case 'n':
-						System.out.println("Fin del juego");
-						break;
-					default:
-						System.out.println("Opción no válida");
-					}
+		char opcion = ' ';
+		do {
+			System.out.println("¿Deseas jugar otra partida? S/N");
+			opcion = in.nextLine().charAt(0);
+			switch (opcion) {
+			case 'S':
+			case 's':
+				jugarPartida();
+				break;
+			case 'N':
+			case 'n':
+				System.out.println("Fin del juego");
+				break;
+			default:
+				System.out.println("Opción no válida");
+			}
 
-				} while (opcion != 'N' && opcion != 'n');
+		} while (opcion != 'N' && opcion != 'n');
 	}
 
 	public static boolean haGanadoJugador1(String palabra) {
@@ -104,35 +108,35 @@ public class Proyecto_wordle {
 	}
 
 	public static String compruebaLetrasAcertadas(String palabraIntroducida, String palabraSecreta) {
-        char[] resultado = new char[palabraIntroducida.length()];
+		char[] resultado = new char[palabraIntroducida.length()];
 
-        for (int i = 0; i < palabraIntroducida.length(); i++) {
-            char letraIntroducida = palabraIntroducida.charAt(i);
-            char letraSecreta = palabraSecreta.charAt(i);
+		for (int i = 0; i < palabraIntroducida.length(); i++) {
+			char letraIntroducida = palabraIntroducida.charAt(i);
+			char letraSecreta = palabraSecreta.charAt(i);
 
-            if (letraIntroducida == letraSecreta) {
-                resultado[i] = Character.toUpperCase(letraIntroducida);
-                numLetrasAdivinadas++;
-            } else if (palabraSecreta.contains(String.valueOf(letraIntroducida)) &&
-                       !contieneLetraDuplicada(palabraIntroducida, letraIntroducida, i)) {
-                resultado[i] = letraIntroducida;
-               
-            } else {
-                resultado[i] = '*';
-            }
-        }
-        return new String(resultado);
-    }
+			if (letraIntroducida == letraSecreta) {
+				resultado[i] = Character.toUpperCase(letraIntroducida);
+				numLetrasAdivinadas++;
+			} else if (palabraSecreta.contains(String.valueOf(letraIntroducida))
+					&& !contieneLetraDuplicada(palabraIntroducida, letraIntroducida, i)) {
+				resultado[i] = letraIntroducida;
 
-    public static boolean contieneLetraDuplicada(String palabra, char letra, int posicionActual) {
-        int contador = 0;
-        for (int i = 0; i < palabra.length(); i++) {
-            if (i != posicionActual && palabra.charAt(i) == letra) {
-                contador++;
-            }
-        }
-        return contador > 0;
-    }
+			} else {
+				resultado[i] = '*';
+			}
+		}
+		return new String(resultado);
+	}
+	
+	public static boolean contieneLetraDuplicada(String palabra, char letra, int posicionActual) {
+		int contador = 0;
+		for (int i = 0; i < palabra.length(); i++) {
+			if (i != posicionActual && palabra.charAt(i) == letra) {
+				contador++;
+			}
+		}
+		return contador > 0;
+	}
 
 	public static void generaPalabra() {
 		String[] palabras = { "robar", "comer", "lapiz", "carta", "juego", "letra", "sofia", "gafas", "manta", "queso",
@@ -140,36 +144,36 @@ public class Proyecto_wordle {
 		Random ale = new Random();
 		int numAle = ale.nextInt(palabras.length);
 		palabraSecreta = palabras[numAle];
-		
-		System.out.println(palabraSecreta);
+		// Descomenta si quieres ver cual es la palabra secreta
+		// System.out.println(palabraSecreta);
 	}
 
 	// COMPROBACIONES
-	public static boolean palabraEsCorrecta(String cad) {
-		if (!contiene5letras(cad))
+	public static boolean palabraEsCorrecta(String palabra) {
+		if (!contiene5letras(palabra))
 			return false;
-		if (contieneAlgunEspacio(cad))
+		if (contieneAlgunEspacio(palabra))
 			return false;
-		if (!contieneSoloLetras(cad))
+		if (!contieneSoloLetras(palabra))
 			return false;
-		if (!contieneVocales(cad))
+		if (!contieneVocales(palabra))
 			return false;
 		// si no esta en el rango de 2 y 3 devuelve falso
-		if (!(contarVocales(cad) >= 2 && contarVocales(cad) <= 3))
+		if (!(contarVocales(palabra) >= 2 && contarVocales(palabra) <= 3))
 			return false;
-		if (contieneVocalesIgualesSeguidas(cad))
+		if (contieneVocalesIgualesSeguidas(palabra))
 			return false;
-		if (terminaEnQWX(cad))
+		if (terminaEnQWX(palabra))
 			return false;
-		if (contieneConsonantesSeguidas(cad))
+		if (contieneConsonantesSeguidas(palabra))
 			return false;
 		// en caso contrario:
 		return true;
 	}
 
 	// Debe tener exactamente 5 letras.
-	public static boolean contiene5letras(String cad) {
-		if (cad.length() != 5) {
+	public static boolean contiene5letras(String palabra) {
+		if (palabra.length() != 5) {
 			return false;
 		}
 		return true;
@@ -180,9 +184,9 @@ public class Proyecto_wordle {
 	 * usuario introduzca letras.
 	 */
 
-	public static boolean contieneSoloLetras(String cad) {
-		for (int i = 0; i < cad.length(); i++) {
-			char caracter = cad.charAt(i);
+	public static boolean contieneSoloLetras(String palabra) {
+		for (int i = 0; i < palabra.length(); i++) {
+			char caracter = palabra.charAt(i);
 			// Verifica si el carácter no es una letra
 			if (!Character.isLetter(caracter)) {
 				System.out.println("Solo se admiten letras");
@@ -193,10 +197,10 @@ public class Proyecto_wordle {
 	}
 
 	// Para comprobar si tiene alguna vocal
-	public static boolean contieneVocales(String cad) {
-		for (int i = 0; i < cad.length(); i++) {
+	public static boolean contieneVocales(String palabra) {
+		for (int i = 0; i < palabra.length(); i++) {
 			for (int j = 0; j < vocales.length; j++) {
-				if (cad.charAt(i) == vocales[j]) {
+				if (palabra.charAt(i) == vocales[j]) {
 					return true;
 				}
 			}
@@ -206,10 +210,10 @@ public class Proyecto_wordle {
 	}
 
 	// Despues de comprobar, que tenga entre dos y tres vocales.
-	public static int contarVocales(String cad) {
+	public static int contarVocales(String palabra) {
 		int cont = 0;
-		for (int i = 0; i < cad.length(); i++) {
-			char letraActual = cad.charAt(i);
+		for (int i = 0; i < palabra.length(); i++) {
+			char letraActual = palabra.charAt(i);
 			for (int j = 0; j < vocales.length; j++) {
 				if (letraActual == vocales[j]) {
 					cont++;
@@ -220,8 +224,8 @@ public class Proyecto_wordle {
 	}
 
 	// No debe contener espacios
-	public static boolean contieneAlgunEspacio(String cad) {
-		if (cad.contains(" ")) {
+	public static boolean contieneAlgunEspacio(String palabra) {
+		if (palabra.contains(" ")) {
 			System.out.println("No se admiten espacios");
 			return true;
 		}
@@ -231,10 +235,10 @@ public class Proyecto_wordle {
 	}
 
 	// no debe contener dos vocales iguales seguidas
-	public static boolean contieneVocalesIgualesSeguidas(String cad) {
-		for (int i = 0; i < cad.length() - 1; i++) {
-			char letraActual = cad.charAt(i);
-			char siguienteLetra = cad.charAt(i + 1);
+	public static boolean contieneVocalesIgualesSeguidas(String palabra) {
+		for (int i = 0; i < palabra.length() - 1; i++) {
+			char letraActual = palabra.charAt(i);
+			char siguienteLetra = palabra.charAt(i + 1);
 
 			if (esVocal(letraActual) && esVocal(siguienteLetra) && letraActual == siguienteLetra) {
 				System.out.println("No puedes tener más de dos vocales seguidas");
@@ -255,8 +259,8 @@ public class Proyecto_wordle {
 		return false;
 	}
 
-	public static boolean terminaEnQWX(String cad) {
-		char letraFinal = cad.charAt(cad.length() - 1);
+	public static boolean terminaEnQWX(String palabra) {
+		char letraFinal = palabra.charAt(palabra.length() - 1);
 		char[] letrasRaras = { 'q', 'w', 'x' };
 		for (int i = 0; i < 3; i++) {
 			if (letraFinal == letrasRaras[i]) {
@@ -268,11 +272,11 @@ public class Proyecto_wordle {
 		return false;
 	}
 
-	public static boolean contieneConsonantesSeguidas(String cad) {
-		for (int i = 0; i < cad.length() - 2; i++) {
-			char letraActual = cad.charAt(i);
-			char letraSiguiente = cad.charAt(i + 1);
-			char letraFinal = cad.charAt(i + 2);
+	public static boolean contieneConsonantesSeguidas(String palabra) {
+		for (int i = 0; i < palabra.length() - 2; i++) {
+			char letraActual = palabra.charAt(i);
+			char letraSiguiente = palabra.charAt(i + 1);
+			char letraFinal = palabra.charAt(i + 2);
 
 			if (!esVocal(letraActual) && !esVocal(letraSiguiente) && !esVocal(letraFinal)) {
 				System.out.println("No puedes tener 3 consonantes seguidas.");
