@@ -13,6 +13,7 @@ public class RepasoInteger {
 		int num2 = Integer.parseInt(cad2);
 		
 		int rspo = num1 + num2;
+		System.out.println(rspo);
 	}
 
 }

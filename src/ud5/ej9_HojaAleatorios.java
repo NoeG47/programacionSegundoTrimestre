@@ -1,7 +1,6 @@
 package ud5;
 
 import java.util.Random;
-import java.util.Scanner;
 
 /*
  * Realiza un programa que vaya generando números aleatorios pares entre 0 y 100 y que no

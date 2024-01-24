@@ -7,7 +7,6 @@ public class ej15_HojaAleatoriosSolPaul {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Random ale = new Random();
-		int tirada = 0;
 		int figura[] = new int[3];
 		// se puede hacer asi, así se inicializa:
 		String[] figuras = { "corazon", "diamante", "herradura", "campana", "limon" };

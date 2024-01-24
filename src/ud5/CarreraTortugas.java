@@ -67,7 +67,7 @@ public class CarreraTortugas {
 		}while(tortugas[tortAvanza].length() != limite);
 
 		System.out.println("Ha ganada la tortuga " + (tortAvanza + 1));
-
+		in.close();
 	}
 	
 	

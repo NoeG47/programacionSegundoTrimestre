@@ -19,7 +19,7 @@ public class ej4_hojaCadenas {
 		if (cad.charAt(0)!= ' ')
 			contPalabras++;
 		System.out.println(cad + " tiene " + contPalabras + " palabras");
-	
+		 in.close();
 	}
 
 }

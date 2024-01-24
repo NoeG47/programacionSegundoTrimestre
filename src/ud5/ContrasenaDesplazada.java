@@ -76,6 +76,7 @@ public class ContrasenaDesplazada {
 			}
 
 		} while (opcion != 3);
+		in.close();
 	}
 
 	public static String codificar(String mensaje, int desplazamiento) {
