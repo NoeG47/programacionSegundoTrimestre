@@ -39,16 +39,18 @@ public class Cuenta {
 			cantidadInicial += cantidadIngreso;
 		}
 	} 
-	public void retirar (double cantidadRetiro) {
-		if (cantidadInicial- cantidadRetiro < 0 ) {
-			cantidadInicial = 0;
+	public boolean retirar (double cantidadRetiro) {
+		if (cantidadRetiro<= cantidadInicial ) {
+			cantidadInicial -=  cantidadRetiro;
+			return true;
 		}
 		else
 		{
-			cantidadInicial -= cantidadRetiro;
+			return false;
 		}
 	} 
 	//metodo getter
+	//toString
 	public String dameDatos() {
 		return "el nombre del titular es " + titular + " y su saldo disponible es: " + cantidadInicial;
 	}
