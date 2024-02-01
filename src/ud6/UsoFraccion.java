@@ -25,14 +25,24 @@ public class UsoFraccion {
 
 		// cambiar aqui el método
 		Fraccion f3 = f1.dividir(f2);
-		System.out.println("la resta de " + f1 + " y " + f2 + " es");
+		System.out.println("la division de " + f1 + " y " + f2 + " es");
 		f3.mostrar();
 
-		// Ver si la fraccion 2 es igual
-		if (f1.esIgual(f2)) {
-			System.out.println("la 2º fracción es igual");
+		// llamar al metodo para simplificar
+		System.out.println("la fracción simplificada de " + f1 + " es: ");
+		f1.simplificar();
+
+		f1.mostrar();
+		System.out.println("la fracción simplificada de " + f2 + " es: ");
+		f2.simplificar();
+
+		f2.mostrar();
+
+		// Ver si la fraccion 2 es equivalante
+		if (f1.sonEquivalentes(f2)) {
+			System.out.println("la 2º fracción es equivalante");
 		} else {
-			System.out.println("la 2º fraccion no es igual");
+			System.out.println("la 2º fraccion no es equivalante");
 		}
 
 	}
