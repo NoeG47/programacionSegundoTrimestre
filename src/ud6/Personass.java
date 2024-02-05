@@ -18,7 +18,7 @@ public class Personass {
 		if(numCuentasAsociadas >= 3) {
 			return false;
 		}
-		//añadimos una nuve acuneta asociada a la persona
+		//añadimos una nueva cuenta asociada a la persona
 		Cuentas c = new Cuentas(isbn);
 		cuentas[numCuentasAsociadas] = c;
 		numCuentasAsociadas++;
@@ -42,5 +42,19 @@ public class Personass {
 			cadena += cuentas[i].toString();
 		}
 		return cadena;
+	}
+	public boolean esMoroso() {
+		/*for (int i = 0; i < numCuentasAsociadas; i++) {
+			if (cuentas[i].consultarSaldo() < 0) {
+				return true;
+			}
+		}
+		return false;*/
+		for (Cuentas c:cuentas) {
+			if (c.consultarSaldo() < 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
