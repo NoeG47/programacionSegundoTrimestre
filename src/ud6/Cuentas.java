@@ -33,10 +33,12 @@ public class Cuentas {
 	}
 
 	public boolean pagarRecibos(double saldoAPagar) {
-		if (saldoAPagar <= saldo) {
-			saldo = saldo - saldoAPagar;
+		saldo = saldo - saldoAPagar;
+		if (saldo >= 0) {
+			//si el saldo es positivo o 0
 			return true; 
 		} else {
+			//si el saldo es negativo
 			return false; 
 		}
 	}

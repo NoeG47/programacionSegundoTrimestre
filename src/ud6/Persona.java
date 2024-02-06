@@ -1,5 +1,7 @@
 package ud6;
 
+import java.util.Random;
+
 public class Persona {
 //creamos sus atributos encapsulados
 	private String nombre;
@@ -21,20 +23,22 @@ public class Persona {
 		sexo = 'H';
 		peso = 0.0;
 		altura = 0.0;
+		this.dni = generaDNI();
 	}
 
 	public Persona(String nombre, int edad, char sexo) {
 		this.nombre = nombre;
 		this.edad = edad;
-		this.sexo = comprobarSexo(sexo);
+		this.sexo = sexo;
 		peso = 0.0;
 		altura = 0.0;
+		this.dni = generaDNI();
 	}
 
 	public Persona(String nombre, int edad, char sexo, double peso, double altura) {
 		this.nombre = nombre;
 		this.edad = edad;
-		this.sexo = comprobarSexo(sexo);
+		this.sexo = sexo;
 		this.peso = peso;
 		this.altura = altura;
 		this.dni = generaDNI();
@@ -54,7 +58,7 @@ public class Persona {
 	}
 
 	public boolean esMayorDeEdad() {
-		return edad > 18;
+		return (edad >= 18);
 	}
 
 	public String toString() {
@@ -63,23 +67,28 @@ public class Persona {
 	}
 
 	// Métodos privados
-	private char comprobarSexo(char sexo) {
-		if (sexo == 'H' || sexo == 'M') {
-			return sexo;
+	private void comprobarSexo(char sexo) {
+		if (sexo != 'H' && sexo != 'M') {
+			this.sexo = 'H';
 		} else {
-			return 'H';
+			this.sexo = sexo;
 		}
 	}
 
 	private String generaDNI() {
+		Random random = new Random();
+		int num = random.nextInt(100000000);
+		String letra = "TRWAGMYFPDXBNJZSQVHLCKE";
+		int resto = num%23;
 		// Genera un número aleatorio de 8 cifras
-		long numero = (long) (Math.random() * 90000000) + 10000000;
+		//long numero = (long) (Math.random() * 90000000) + 10000000;
 
 		// Calcula la letra correspondiente al DNI
-		char letra = "TRWAGMYFPDXBNJZSQVHLCKE".charAt((int)(numero % 23));
+		//char letra = "TRWAGMYFPDXBNJZSQVHLCKE".charAt((int)(num % 23));
 
 		// Devuelve el DNI completo
-		return Long.toString(numero) + letra;
+		//return Long.toString(num) + letra;
+		return num+""+letra.charAt(resto);
 	}
 
 	// definir los métodos setter para todos los atributos
@@ -92,7 +101,7 @@ public class Persona {
 	}
 
 	public void setSexo(char sexo) {
-		this.sexo = comprobarSexo(sexo);
+		this.sexo = sexo;
 	}
 
 	public void setPeso(double peso) {
