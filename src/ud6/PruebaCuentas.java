@@ -3,9 +3,8 @@ package ud6;
 public class PruebaCuentas {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Cuentas user1;
-		user1 = new Cuentas("1234546345");
+		Cuentas2 user1;
+		user1 = new Cuentas2("1234546345");
 
 		
 		if(user1.recibirAbono(1500)== true) {
@@ -20,7 +19,7 @@ public class PruebaCuentas {
 				System.out.println("El recibo no se ha pagado "
 						+ "correctamente, saldo insuficienbte");
 			}
-		System.out.println((Cuentas)user1);
+		System.out.println((Cuentas2)user1);
 	
 	}
 

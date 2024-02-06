@@ -1,16 +1,16 @@
 package ud6;
 
-public class Personass {
+public class Persona2 {
 	//definimos los atributos y los encapsulamos
 	private String dni;
-	private Cuentas [] cuentas;
+	private Cuentas2 [] cuentas;
 	private int numCuentasAsociadas;
 
 	//constructor
-	public Personass(String dni) {
+	public Persona2(String dni) {
 		this.dni = dni;
 		numCuentasAsociadas = 0;
-		cuentas = new Cuentas [3];
+		cuentas = new Cuentas2 [3];
 	}
 	//setter
 	public boolean addCuenta(String isbn) {
@@ -19,14 +19,14 @@ public class Personass {
 			return false;
 		}
 		//añadimos una nueva cuenta asociada a la persona
-		Cuentas c = new Cuentas(isbn);
+		Cuentas2 c = new Cuentas2(isbn);
 		cuentas[numCuentasAsociadas] = c;
 		numCuentasAsociadas++;
 		return true;
 	}
-	public Cuentas dameCuenta(String isbn) {
+	public Cuentas2 dameCuenta(String isbn) {
 		for (int i = 0; i < numCuentasAsociadas; i++) {
-			Cuentas c = cuentas[i];
+			Cuentas2 c = cuentas[i];
 			if (isbn.equals(c.consultarCuenta())) {
 				return c;
 			}
@@ -50,8 +50,8 @@ public class Personass {
 			}
 		}
 		return false;*/
-		for (Cuentas c:cuentas) {
-			if (c.consultarSaldo() < 0) {
+		for (Cuentas2 c:cuentas) {
+			if (c != null && c.consultarSaldo() < 0) {
 				return true;
 			}
 		}

@@ -1,12 +1,12 @@
 package ud6;
 
-public class Cuentas {
+public class Cuentas2 {
 	// definimos los atributos
 	private double saldo;
 	private String isbn;
 
 	// creamos el constructor
-	public Cuentas(String isbn) {
+	public Cuentas2(String isbn) {
 		this.isbn = isbn;
 		this.saldo = 0.0;
 	}
