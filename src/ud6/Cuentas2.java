@@ -20,6 +20,10 @@ public class Cuentas2 {
 	public double consultarSaldo() {
 		return saldo;
 	}
+	// metodo getter
+		public String toString() {
+			return "numero cuenta:" + isbn + " saldo:" + saldo;
+		}
 
 	// setter
 	public boolean recibirAbono(double saldoIngreso) {
@@ -28,12 +32,13 @@ public class Cuentas2 {
 			return true;
 		}
 		else {
-			return false;
+			return false; // no permitimos abonos negativos
 		}
 	}
 
 	public boolean pagarRecibos(double saldoAPagar) {
-		if (saldoAPagar <= saldo) {
+		// nos aseguramos que el recibo es positivo
+		if (saldoAPagar > 0) {
 			saldo = saldo - saldoAPagar;
 			return true; 
 		} else {
@@ -41,9 +46,6 @@ public class Cuentas2 {
 		}
 	}
 
-	// metodo publico
-	public String toString() {
-		return "numero cuenta:" + isbn + " saldo:" + saldo;
-	}
+	
 
 }

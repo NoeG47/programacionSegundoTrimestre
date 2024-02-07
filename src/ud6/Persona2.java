@@ -51,7 +51,7 @@ public class Persona2 {
 		}
 		return false;*/
 		for (Cuentas2 c:cuentas) {
-			if (c != null && c.consultarSaldo() < 0) {
+			if (c.consultarSaldo() < 0) {
 				return true;
 			}
 		}

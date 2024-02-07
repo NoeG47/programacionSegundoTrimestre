@@ -30,6 +30,7 @@ public class Persona {
 		this.nombre = nombre;
 		this.edad = edad;
 		this.sexo = sexo;
+		comprobarSexo();
 		peso = 0.0;
 		altura = 0.0;
 		this.dni = generaDNI();
@@ -39,6 +40,7 @@ public class Persona {
 		this.nombre = nombre;
 		this.edad = edad;
 		this.sexo = sexo;
+		comprobarSexo();
 		this.peso = peso;
 		this.altura = altura;
 		this.dni = generaDNI();
@@ -67,7 +69,7 @@ public class Persona {
 	}
 
 	// Métodos privados
-	private void comprobarSexo(char sexo) {
+	private void comprobarSexo() {
 		if (sexo != 'H' && sexo != 'M') {
 			this.sexo = 'H';
 		} else {
