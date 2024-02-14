@@ -11,6 +11,8 @@ public class Pareja {
 	public Pareja (Persona persona1, Persona persona2) {
 		this.persona1 = persona1;
 		this.persona2 = persona2;
+		regaloParaPersona1 = null;
+		regaloParaPersona2 = null;
 	}
 	public void setRegaloParaPersona1(Regalo regaloParaPersona1){
 		 this.regaloParaPersona1 = regaloParaPersona1;
@@ -20,15 +22,20 @@ public class Pareja {
 		 this.regaloParaPersona2 = regaloParaPersona2;
 		
 	}
+	//getter
 	public double calcularCostoTotal() {
 		return regaloParaPersona1.getPrecio() + regaloParaPersona2.getPrecio();
 	}
 	public void mostrarDetalles() {
-		System.out.println(toString());
+		System.out.println(regaloParaPersona1.toString()+ " "+
+				regaloParaPersona2.toString()+ "\n Precio total:"+
+				this.calcularCostoTotal());
 	}
 	public String toString() {
-		return "Pareja [persona1=" + persona1 + ", persona2=" + persona2 + ", regaloParaPersona1=" + regaloParaPersona1
-				+ ", regaloParaPersona2=" + regaloParaPersona2 +  ", precioTotal de regalos= " + calcularCostoTotal()  + "]" ;
+		return "Persona1 " + persona1 
+				+ "\n su regalo: " + regaloParaPersona1
+				+ "\n Persona2 " + persona2 + 
+				"\n su regalo: " + regaloParaPersona2;
 	}
 	
 

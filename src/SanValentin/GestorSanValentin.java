@@ -11,6 +11,7 @@ public class GestorSanValentin {
 		pareja1.setRegaloParaPersona1(regalo1);
 		pareja1.setRegaloParaPersona2(regalo2);
 		pareja1.mostrarDetalles();
+		System.out.println(pareja1.toString());
 	}
 
 }

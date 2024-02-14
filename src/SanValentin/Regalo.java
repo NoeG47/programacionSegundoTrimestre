@@ -31,6 +31,7 @@ public class Regalo {
 	}
 	@Override
 	public String toString() {
-		return nombre + ", descripcion=" + descripcion + ", precio=" + precio;
+		return nombre + ", descripcion = " + descripcion +
+				", precio = " + precio + "$";
 	}
 }
