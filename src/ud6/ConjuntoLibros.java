@@ -10,13 +10,6 @@ public class ConjuntoLibros {
 		this.cont = 0;
 	}
 
-	public int getCont() {
-		return cont;
-	}
-
-	public void setCont(int cont) {
-		this.cont = cont;
-	}
 	
 	public Libro[] getConjunto() {
 		return conjunto;
@@ -41,7 +34,7 @@ public class ConjuntoLibros {
 	}
 
 	public boolean eliminarlibroTitulo(String repuesta) {
-		for (int i = 0; i < cont; i++) {
+		for (int i = 0; i < TAM; i++) {
 			if (conjunto[i] != null && conjunto[i].getAutor().equals(repuesta)) {
 				conjunto[i] = null;
 				cont--;
@@ -88,13 +81,28 @@ public class ConjuntoLibros {
 				}
 			}
 			System.out.println(conjunto[posMaxCalificacion].toString());
-		}
-			
-
-		
+		}	
 	}
 
-	
+	public void mostrarMenorCalificacion() {
+		int primeraPosicion=damePrimeraPosicion();
+		int posMinCalificacion=primeraPosicion;
+		int minCalif = 0;
+		if (primeraPosicion!=-1)  // no está vacio
+		{
+			minCalif=conjunto[primeraPosicion].getCalificacion();
+			
+			for (int i = primeraPosicion+1; i < TAM; i++) {
+				if (conjunto[i]!=null) {
+					if (conjunto[i].getCalificacion()<minCalif) {
+						minCalif=conjunto[i].getCalificacion();
+						posMinCalificacion=i;
+					}
+				}
+			}
+			System.out.println(conjunto[posMinCalificacion].toString());
+		}	
+	}
 
 	public String toString() {
 		String cadLibros = "";
