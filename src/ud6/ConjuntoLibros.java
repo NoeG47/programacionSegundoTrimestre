@@ -1,23 +1,109 @@
 package ud6;
 
 public class ConjuntoLibros {
-	// declarar tamano array
-	private final int capacidad = 10;
-	private Libro[] libros;
-	private int contador;
+	private final int TAM = 10;
+	private int cont;
+	private Libro[] conjunto;
 
 	public ConjuntoLibros() {
-		this.libros = new Libro[capacidad];
-		this.contador = 0;
+		this.conjunto = new Libro[TAM];
+		this.cont = 0;
 	}
 
-	public boolean agregarLibro(Libro libro) {
-		if (contador >= capacidad) {
-			System.out.println("No hay suficiente espacio para añadir más libros.");
-			return false;
+	public int getCont() {
+		return cont;
+	}
+
+	public void setCont(int cont) {
+		this.cont = cont;
+	}
+	
+	public Libro[] getConjunto() {
+		return conjunto;
+	}
+
+	public void setConjunto(Libro[] conjunto) {
+		this.conjunto = conjunto;
+	}
+
+	public boolean anadirlibros(Libro libro) {
+		if (cont < TAM) {
+			for (int i = 0; i < TAM; i++) {
+				if (conjunto[i] == null) {
+					conjunto[i] = libro;
+					cont++;
+					return true;
+				}
+
+			}
 		}
-		libros[contador++] = libro;
-		System.out.println("Libro '" + libro.toString() + "' añadido al conjunto.");
-		return true;
+		return false;
+	}
+
+	public boolean eliminarlibroTitulo(String repuesta) {
+		for (int i = 0; i < cont; i++) {
+			if (conjunto[i] != null && conjunto[i].getAutor().equals(repuesta)) {
+				conjunto[i] = null;
+				cont--;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean eliminarlibroAutor(String repuesta) {
+		boolean eliminado = false;
+		for (int i = 0; i < cont; i++) {
+			if (conjunto[i] != null && conjunto[i].getAutor().equals(repuesta)) {
+				conjunto[i] = null;
+				eliminado = true;
+				cont--;
+				return true;
+			}
+		}
+		return eliminado;
+	}
+	private int damePrimeraPosicion() {
+		for(int i=0;i<TAM;i++) {
+			if (conjunto[i]!=null) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	public void mostrarMayorCalificacion() {
+		int primeraPosicion=damePrimeraPosicion();
+		int posMaxCalificacion=primeraPosicion;
+		int maxCalif = 0;
+		if (primeraPosicion!=-1)  // no está vacio
+		{
+			maxCalif=conjunto[primeraPosicion].getCalificacion();
+			
+			for (int i = primeraPosicion+1; i < TAM; i++) {
+				if (conjunto[i]!=null) {
+					if (conjunto[i].getCalificacion()>maxCalif) {
+						maxCalif=conjunto[i].getCalificacion();
+						posMaxCalificacion=i;
+					}
+				}
+			}
+			System.out.println(conjunto[posMaxCalificacion].toString());
+		}
+			
+
+		
+	}
+
+	
+
+	public String toString() {
+		String cadLibros = "";
+		for (int i = 0; i < TAM; i++) {
+			if (conjunto[i] != null) {
+				cadLibros += conjunto[i].toString()+"\n";
+			}
+
+		}
+		return cadLibros;
 	}
 }
