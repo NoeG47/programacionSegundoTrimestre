@@ -8,7 +8,7 @@ public class AgendaContactos {
 	//constructor
 	public AgendaContactos() {
 		this.agenda = new Contacto[TAM];
-		this.cont = 0;
+
 	}
 	//para devolver la agenda
 	public Contacto[] getAgenda() {
@@ -18,24 +18,60 @@ public class AgendaContactos {
 		this.agenda = agenda;
 	}
 	public void aniadirContacto(Contacto contacto) {
-		//boolean seHaAniadido = false;
 		if (cont < TAM) {
 			for (int i = 0; i < TAM; i++) {
-				if(agenda[i] != null) {
+				if (agenda[i] == null) {
 					agenda[i] = contacto;
+					System.out.println(contacto.toString());
+					System.out.println("Se ha añadido correctamente");
+					i = TAM;
 					cont++;
-					System.out.println("Contacto añadido");
 				}
+
 			}
+		}
+		else {
+			System.out.println("no se ha añadido");
 		}
 	}
-	public int huecosLibre() {
-		int numHuecosLibres = 0;
+	public boolean existeContacto(Contacto contacto) {
+		return false;
+		
+	}
+	public boolean eliminarContacto(Contacto contacto) {
 		for (int i = 0; i < TAM; i++) {
-			if(agenda[i] != null) {
-				numHuecosLibres++;
+			String nombre = contacto.getNombre();
+			if (agenda[i] != null && agenda[i].getNombre().equals(nombre)) {
+				agenda[i] = null;
+				cont = cont -1;
+				return true;
 			}
 		}
-		return numHuecosLibres;
+		return false;
+	}
+	public int huecosLibre() {
+			int huecos = TAM - cont;
+			return huecos;
+		
+		
+	}
+	public boolean agendaLlena() {
+		if (cont == TAM) {
+			return true;
+		}
+		return false;
+	}
+	public void listarContactos() {
+		System.out.println(toString());
+	}
+	public String toString() {
+		String cadContactos = "";
+		for (int i = 0; i < TAM; i++) {
+			if (agenda[i] != null) {
+				cadContactos += agenda[i].toString()+"\n";
+			}
+
+		}
+		return cadContactos;
 	}
 }
