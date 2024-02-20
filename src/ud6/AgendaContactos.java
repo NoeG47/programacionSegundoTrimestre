@@ -7,6 +7,7 @@ public class AgendaContactos {
 
 	// constructor
 	public AgendaContactos() {
+		this.cont = 0;
 		this.agenda = new Contacto[TAM];
 
 	}
