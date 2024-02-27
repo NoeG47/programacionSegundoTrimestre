@@ -4,18 +4,20 @@ import java.util.Scanner;
 
 public class TresEnRaya {
 	//atributos
-	private int vacio  = 0;
-	private int equis = 1;
-	private int circulo = 2;
+	private int vacio;
+	private int equis;
+	private int circulo;
 	
 	private int[][] tablero;
 	
 	//constructor
 	public TresEnRaya() {
 		this.tablero = new int [3][3];
-		
-		
+		this.vacio = 0;
+		this.equis = 1;
+		this.circulo = 2;
 	}
+	
 	// funcion que pone a 0 todo el tablero
 		public void iniciar() {
 			for (int i = 0; i < 3; i++) {
@@ -62,7 +64,7 @@ public class TresEnRaya {
 				switch (opcionModalidad) {
 				case 1:
 					//Jugar dos jugadores
-					//jugarDosJugadores();
+					jugarDosJugadores();
 					break;
 				case 2:
 					//Jugador vs Máquina
@@ -88,11 +90,11 @@ public class TresEnRaya {
 		        dibujaTablero();
 		        
 		        // Solicitar al jugador actual que haga su movimiento
-		        System.out.println("Turno del jugador " + (jugadorActual == equis ? "X" : "O"));
-		        System.out.print("Ingrese la fila (0-2): ");
-		        int fila = in.nextInt();
-		        System.out.print("Ingrese la columna (0-2): ");
-		        int columna = in.nextInt();
+		        System.out.println("Turno del jugador " + jugadorActual);
+		        System.out.print("Ingrese la fila (1-3): ");
+		        int fila = in.nextInt() - 1;
+		        System.out.print("Ingrese la columna (1-3): ");
+		        int columna = in.nextInt() - 1;
 		        
 		        // Verificar si la casilla está vacía
 		        if (tablero[fila][columna] == vacio) {
