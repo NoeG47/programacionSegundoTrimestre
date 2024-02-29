@@ -11,30 +11,26 @@ public class AgendaContactos {
 		this.agenda = new Contacto[TAM];
 
 	}
-
-	// para devolver la agenda
+	//metodos no necesarios en este caso
+	//imprime el contenido de la agenda utilizando el método
 	public Contacto[] getAgenda() {
 		return agenda;
 	}
-
+	//es más general y establece toda la agenda de una vez.
 	public void setAgenda(Contacto[] agenda) {
 		this.agenda = agenda;
 	}
 
 	public void aniadirContacto(Contacto contacto) {
 		if (cont < TAM) {
-			for (int i = 0; i < TAM; i++) {
-				if (agenda[i] == null) {
-					if (!existeContacto(contacto)) {
-						agenda[i] = contacto;
-						System.out.println(contacto.toString());
-						System.out.println("Se ha añadido correctamente");
-						i = TAM;
-						cont++;
-					}
-				}
 
+			if (!existeContacto(contacto)) {
+				agenda[cont] = contacto;
+				System.out.println(contacto.toString());
+				System.out.println("Se ha añadido correctamente");
+				cont++;
 			}
+
 		} else {
 			System.out.println("Agenda llena, no se ha añadido");
 		}
