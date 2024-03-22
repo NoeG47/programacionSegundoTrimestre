@@ -29,22 +29,28 @@ public class TresEnRayaPOONoe {
 	public void jugarPartida() {
 		reiniciarTablero();
 		boolean continuarJuego = true;
+		boolean posicionEsValida = true;
 		determinarPrimerJugador();
 		while (continuarJuego) {
 			System.out.println("Turno del jugador " + jugadorActual);
 			dibujarTablero();
-			System.out.println("Ingrese la posición (1-9): ");
-			int posicion = entrada.nextInt();
-			if (movimientoValido(posicion)) {
-				if (jugadorActual == 1) {
-					mueveJugador1(posicion);
+			do {
+				System.out.println("Ingrese la posición (1-9): ");
+				int posicion = entrada.nextInt();
+				if (movimientoValido(posicion)) {
+					if (jugadorActual == 1) {
+						mueveJugador1(posicion);
+						posicionEsValida = true;
+					} else {
+						mueveJugador2(posicion);
+						posicionEsValida = true;
+					}
 				} else {
-					mueveJugador2(posicion);
+					posicionEsValida = false;
+					System.out.println("Posición no válida, intente nuevamente.");
+
 				}
-			} else {
-				System.out.println("Posición no válida, intente nuevamente.");
-				continue;
-			}
+			} while (!posicionEsValida);
 			dibujarTablero();
 
 			if (ganaJugador1()) {
