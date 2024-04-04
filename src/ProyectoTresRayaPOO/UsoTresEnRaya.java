@@ -9,7 +9,7 @@ public class UsoTresEnRaya {
 		in = new Scanner(System.in);
 		TresEnRayaPOONoe juego = new TresEnRayaPOONoe();
 		// juego.iniciarJuego();
-		int op, op2;
+		int op;
 		do {
 			mostrarMenu();
 			System.out.println("Introduce una opción: ");
