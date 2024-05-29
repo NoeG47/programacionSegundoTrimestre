@@ -16,8 +16,6 @@ public class ej5_hojaCadenasSolPaul {
 		}
 
 		String iniciales = cad.charAt(0) + "";
-		// sepramos en palabras
-		int contPalabras = 0;
 		// caso general
 		for (int i = 1; i < cad.length(); i++) {
 			if (cad.charAt(i - 1) == ' ' && cad.charAt(i) != ' ')
